@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let facileButton = document.getElementById("facile");
     let intermediaireButton = document.getElementById("intermediaire");
     let difficileButton = document.getElementById("difficile");
+    let choixNiveauDiv = document.getElementById("choixNiveau");
+    let appDiv = document.querySelector(".app");
 
     function facile() {
         let n = Math.floor(Math.random()*2) + 1;
@@ -27,14 +29,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     facileButton.addEventListener("click", function() {
+        appDiv.style.display = "block";
+        choixNiveauDiv.style.display = "none";
         facile();
     });
 
     intermediaireButton.addEventListener("click", function() {
+        appDiv.style.display = "block";
+        choixNiveauDiv.style.display = "none";
         intermediaire();
     });
 
     difficileButton.addEventListener("click", function() {
+        appDiv.style.display = "block";
+        choixNiveauDiv.style.display = "none";
         difficile();
     });
 });
