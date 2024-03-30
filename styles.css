@@ -65,6 +65,7 @@ input[type="text"], input[type="number"] {
     font-size: 30px;
 }
 
-#finDuJeu{
-	float : right; // avec margin-left380px ca fait pareil 
+#finDuJeu {
+    position: absolute;
+    right: calc(100% - 914px); 
 }
