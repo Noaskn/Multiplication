@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let timerInterval;
     let secondesEcoulees = 0;
 
+    document.getElementById("input").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Empêcher le comportement par défaut de la touche "Entrée"
+        validerButton.click(); // Simuler un clic sur le bouton de validation
+    }
+    });
+
+
     function facile() {
 		let tables = [1, 2, 10];
 		let tableIndex = Math.floor(Math.random() * tables.length);
