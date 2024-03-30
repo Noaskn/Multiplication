@@ -14,11 +14,15 @@
         </div>
         <div class="app" style="display:none;">
             <header>
-                <span>Score :<span id="score"> 0</span></span>
+                <span class="score">Score : <span id="score"> 0</span></span>
             </header>
             <h2><span id="num1">0</span> x <span id="num2">0</span> ? </h2>
             <input type="number" placeholder="Entrer la réponse" id="input">
-            <input type="submit" value="Valider">
+            <button id="valider" class="valider">Valider</button>
+            <div id="timer">00:00</div>
+            <button id="reselectNiveau">Rechoisir le niveau</button>
+            <button id="finDuJeu">Fin du jeu</button>
+            <p id="resultat"></p>
         </div>
         <script type="text/javascript" src="multiplication.js"></script>
     </body>
