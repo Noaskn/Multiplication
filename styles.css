@@ -30,7 +30,7 @@ input[type="text"], input[type="number"] {
     text-align: center;
 }
 
-input[type="submit"] {
+.valider {
     width: calc(100% + 5px);
     padding: 12px;
     margin: 10px 0;
@@ -59,4 +59,8 @@ input[type="submit"] {
     margin: auto;
     height: 100%;
     width: 50%;
+}
+
+.score{
+    font-size: 30px;
 }
