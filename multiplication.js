@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let debutJeu = Date.now(); // Temps de début du jeu
     let timerInterval;
 
-	document.getElementById("input").addEventListener("keypress", function(event) {
+    document.getElementById("input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault(); // Empêcher le comportement par défaut de la touche "Entrée"
             validerButton.click(); // Simuler un clic sur le bouton de validation
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		num1.innerText = n;
 		num2.innerText = m;
         demarrerChronometre(); // Démarrer le chronomètre
-	}
+    }
 
     function intermediaire() {
 		let tables = [5, 3];
@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		num1.innerText = n;
 		num2.innerText = m;
         demarrerChronometre(); // Démarrer le chronomètre
-	}
+}
 
-	function difficile() {
+      function difficile() {
 		let tables = [4, 6, 7, 8, 9];
 		let tableIndex = Math.floor(Math.random() * tables.length);
 		let n = tables[tableIndex];
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		num1.innerText = n;
 		num2.innerText = m;
         demarrerChronometre(); // Démarrer le chronomètre
-	}
+      }
 
 	facileButton.addEventListener("click", function() {
     appDiv.style.display = "block";
