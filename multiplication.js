@@ -14,16 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
     let niveau = "";
     let finDuJeuButton = document.getElementById("finDuJeu");
     let timerElement = document.getElementById('timer');
+    let debutJeu = Date.now(); // Temps de début du jeu
     let timerInterval;
-    let secondesEcoulees = 0;
 
-    document.getElementById("input").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Empêcher le comportement par défaut de la touche "Entrée"
-        validerButton.click(); // Simuler un clic sur le bouton de validation
-    }
+	document.getElementById("input").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Empêcher le comportement par défaut de la touche "Entrée"
+            validerButton.click(); // Simuler un clic sur le bouton de validation
+        }
     });
-
 
     function facile() {
 		let tables = [1, 2, 10];
@@ -32,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		let m = Math.floor(Math.random() * 10) + 1;
 		num1.innerText = n;
 		num2.innerText = m;
+        demarrerChronometre(); // Démarrer le chronomètre
 	}
 
     function intermediaire() {
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		let m = Math.floor(Math.random() * 10) + 1;
 		num1.innerText = n;
 		num2.innerText = m;
+        demarrerChronometre(); // Démarrer le chronomètre
 	}
 
 	function difficile() {
@@ -50,28 +51,39 @@ document.addEventListener("DOMContentLoaded", function() {
 		let m = Math.floor(Math.random() * 10) + 1;
 		num1.innerText = n;
 		num2.innerText = m;
+        demarrerChronometre(); // Démarrer le chronomètre
 	}
 
 	facileButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        facile();
-        niveau="facile";
-    });
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    facile();
+    niveau = "facile";
+    if (!timerInterval) {
+        demarrerChronometre(); // Démarrer le chronomètre uniquement si ce n'est pas déjà fait
+    }
+});
 
-    intermediaireButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        intermediaire();
-        niveau="intermediaire";
-    });
+intermediaireButton.addEventListener("click", function() {
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    intermediaire();
+    niveau = "intermediaire";
+    if (!timerInterval) {
+        demarrerChronometre(); // Démarrer le chronomètre uniquement si ce n'est pas déjà fait
+    }
+});
 
-    difficileButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        difficile();
-        niveau="difficile";
-    });
+difficileButton.addEventListener("click", function() {
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    difficile();
+    niveau = "difficile";
+    if (!timerInterval) {
+        demarrerChronometre(); // Démarrer le chronomètre uniquement si ce n'est pas déjà fait
+    }
+});
+
 
     reselectNiveauButton.addEventListener("click", function() {
         appDiv.style.display = "none";
@@ -82,37 +94,56 @@ document.addEventListener("DOMContentLoaded", function() {
        //Faudra envoyer dans une page php
     });
 
-    //Faudra changer le timer il est pété pour l'instant il tourne juste tout seul
     function afficherTemps(secondes) {
         const minutes = Math.floor(secondes / 60);
         const secondesRestantes = secondes % 60;
         const tempsFormatte = `${minutes < 10 ? '0' : ''}${minutes}:${secondesRestantes < 10 ? '0' : ''}${secondesRestantes}`;
         timerElement.textContent = tempsFormatte;
     }
-    
+
     function demarrerChronometre() {
+        clearInterval(timerInterval); // Arrêter le chronomètre précédent s'il y en a un
         timerInterval = setInterval(() => {
-            afficherTemps(secondesEcoulees);
-            secondesEcoulees++;
+            let maintenant = Date.now();
+            let tempsEcoule = Math.floor((maintenant - debutJeu) / 1000); // Temps écoulé depuis le début du jeu en secondes
+            afficherTemps(tempsEcoule);
         }, 1000);
     }
 
-    demarrerChronometre();
+    // Déclaration de la variable pour enregistrer le moment de la dernière réponse
+let dernierTempsReponse = 0;
 
-    validerButton.addEventListener("click", function() {
-        event.preventDefault();
-        let reponse = document.getElementById("input").value;
-        let resultat = parseInt(reponse) === parseInt(num1.innerText) * parseInt(num2.innerText);
-        if (resultat) {
-            resultatPara.innerText = "Bonne réponse !";
-            score++;
-            scoreDisplay.innerText = score;
+// Fonction appelée lorsque le bouton de validation est cliqué
+validerButton.addEventListener("click", function() {
+    event.preventDefault();
+    let reponse = document.getElementById("input").value;
+    let resultat = parseInt(reponse) === parseInt(num1.innerText) * parseInt(num2.innerText);
+
+    // Calcul du temps écoulé depuis la dernière réponse en secondes
+    let tempsReponse = Math.floor((Date.now() - dernierTempsReponse) / 1000);
+
+    clearInterval(timerInterval); // Arrêter le chronomètre
+
+    if (resultat) {
+        // Calcul du score en fonction du temps de réponse
+        if (tempsReponse < 3) {
+            score += 3;
+        } else if (tempsReponse >= 3 && tempsReponse < 5) {
+            score += 2;
+        } else {
+            score += 1;
         }
-        else {
-            resultatPara.innerText = "Mauvaise réponse.";
-        }
-        document.getElementById("input").value = "";
-        if (niveau === "facile") {
+        resultatPara.innerText = "Bonne réponse !";
+    } else {
+        resultatPara.innerText = "Mauvaise réponse.";
+    }
+    scoreDisplay.innerText = score;
+    document.getElementById("input").value = "";
+    demarrerChronometre(); // Redémarrer le chronomètre
+
+    // Enregistrer le moment de la dernière réponse
+    dernierTempsReponse = Date.now();
+	if (niveau === "facile") {
             facile();
         }
         else if (niveau === "intermediaire") {
@@ -121,5 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
         else if (niveau === "difficile") {
             difficile();
         }
-    });
+});
+
+
 });
