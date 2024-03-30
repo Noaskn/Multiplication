@@ -64,3 +64,7 @@ input[type="text"], input[type="number"] {
 .score{
     font-size: 30px;
 }
+
+#finDuJeu{
+	float : right; // avec margin-left380px ca fait pareil 
+}
