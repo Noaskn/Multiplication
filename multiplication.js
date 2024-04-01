@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let intermediaireButton = document.getElementById("intermediaire");
     let difficileButton = document.getElementById("difficile");
     let reselectNiveauButton = document.getElementById("reselectNiveau");
-	let choixNiveauDiv = document.getElementById("choixNiveau");
+    let choixNiveauDiv = document.getElementById("choixNiveau");
     let appDiv = document.querySelector(".app");
     let validerButton = document.getElementById("valider");
     let resultatPara = document.getElementById("resultat");
@@ -112,9 +112,9 @@ difficileButton.addEventListener("click", function() {
         }, 1000);
     }
 
+let correctResponses = 0;
 
 
-// Fonction appelée lorsque le bouton de validation est cliqué
 validerButton.addEventListener("click", function() {
     event.preventDefault();
     let reponse = document.getElementById("input").value;
@@ -127,32 +127,44 @@ validerButton.addEventListener("click", function() {
 
     if (resultat) {
         // Calcul du score en fonction du temps de réponse
+        let scoreToAdd = 0;
         if (tempsReponse < 3) {
-            score += 3;
+            scoreToAdd = 3;
         } else if (tempsReponse >= 3 && tempsReponse < 5) {
-            score += 2;
+            scoreToAdd = 2;
         } else {
-            score += 1;
+            scoreToAdd = 1;
         }
+
+        // Appliquer le bonus x2 sur le score à ajouter
+        if (correctResponses >= 9) {
+            scoreToAdd *= 2;
+            console.log("Bonus x2 activé pour cette réponse !");
+            document.getElementById("bonusMessage").innerText = "Bonus x2 activé pour cette réponse !";
+        }
+
+        score += scoreToAdd; // Ajouter le score calculé
+        correctResponses++; // Incrémentez le nombre de réponses correctes consécutives
         resultatPara.innerText = "Bonne réponse !";
     } else {
         resultatPara.innerText = "Mauvaise réponse.";
+        correctResponses = 0; // Réinitialisez le nombre de réponses correctes consécutives
+        document.getElementById("bonusMessage").innerText = ""; // Effacer le message en cas de mauvaise réponse
     }
+
     scoreDisplay.innerText = score;
     document.getElementById("input").value = "";
     demarrerChronometre(); // Redémarrer le chronomètre
 
     // Enregistrer le moment de la dernière réponse
     dernierTempsReponse = Date.now();
-	if (niveau === "facile") {
-            facile();
-        }
-        else if (niveau === "intermediaire") {
-            intermediaire();
-        }
-        else if (niveau === "difficile") {
-            difficile();
-        }
+    if (niveau === "facile") {
+        facile();
+    } else if (niveau === "intermediaire") {
+        intermediaire();
+    } else if (niveau === "difficile") {
+        difficile();
+    }
 });
 
 
