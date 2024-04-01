@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     let num1 = document.getElementById("num1");
     let num2 = document.getElementById("num2");
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let timerElement = document.getElementById('timer');
     let debutJeu = Date.now(); // Temps de début du jeu
     let timerInterval;
+	let dernierTempsReponse = debutJeu;
 
     document.getElementById("input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -110,8 +112,7 @@ difficileButton.addEventListener("click", function() {
         }, 1000);
     }
 
-    // Déclaration de la variable pour enregistrer le moment de la dernière réponse
-let dernierTempsReponse = 0;
+
 
 // Fonction appelée lorsque le bouton de validation est cliqué
 validerButton.addEventListener("click", function() {
