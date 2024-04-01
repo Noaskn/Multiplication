@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     let num1 = document.getElementById("num1");
     let num2 = document.getElementById("num2");
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let intermediaireButton = document.getElementById("intermediaire");
     let difficileButton = document.getElementById("difficile");
     let reselectNiveauButton = document.getElementById("reselectNiveau");
-    let choixNiveauDiv = document.getElementById("choixNiveau");
+	let choixNiveauDiv = document.getElementById("choixNiveau");
     let appDiv = document.querySelector(".app");
     let validerButton = document.getElementById("valider");
     let resultatPara = document.getElementById("resultat");
@@ -138,7 +139,8 @@ validerButton.addEventListener("click", function() {
         // Appliquer le bonus x2 sur le score à ajouter
         if (correctResponses >= 9) {
             scoreToAdd *= 2;
-            document.getElementById("bonusMessage").innerText = "Bonus x2 activé !";
+            console.log("Bonus x2 activé pour cette réponse !");
+            document.getElementById("bonusMessage").innerText = "Bonus x2 activé pour cette réponse !";
         }
 
         score += scoreToAdd; // Ajouter le score calculé
