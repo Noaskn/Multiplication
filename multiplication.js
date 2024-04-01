@@ -139,8 +139,7 @@ validerButton.addEventListener("click", function() {
         // Appliquer le bonus x2 sur le score à ajouter
         if (correctResponses >= 9) {
             scoreToAdd *= 2;
-            console.log("Bonus x2 activé pour cette réponse !");
-            document.getElementById("bonusMessage").innerText = "Bonus x2 activé pour cette réponse !";
+            document.getElementById("bonusMessage").innerText = "Bonus x2 activé !";
         }
 
         score += scoreToAdd; // Ajouter le score calculé
