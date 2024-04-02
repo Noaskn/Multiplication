@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     let num1 = document.getElementById("num1");
     let num2 = document.getElementById("num2");
@@ -151,11 +150,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			correctResponses = 0; 
 			let scoreToRemove = 0;
 			if (tempsReponse < 3) {
-				scoreToRemove = -3;
+				scoreToRemove = -1;
 			} else if (tempsReponse >= 3 && tempsReponse < 5) {
 				scoreToRemove = -2;
 			} else {
-				scoreToRemove = -1;
+				scoreToRemove = -3;
 			}
 			score += scoreToRemove;
 			document.getElementById("bonusMessage").innerText = ""; 
