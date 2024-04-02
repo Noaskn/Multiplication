@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     let num1 = document.getElementById("num1");
     let num2 = document.getElementById("num2");
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function intermediaire() {
-		let tables = [5, 3];
+		let tables = [1, 2, 10, 5, 3];
 		let tableIndex = Math.floor(Math.random() * tables.length);
 		let n = tables[tableIndex];
 		let m = Math.floor(Math.random() * 10) + 1;
@@ -47,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 
       function difficile() {
-		let tables = [4, 6, 7, 8, 9];
+		let tables = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		let tableIndex = Math.floor(Math.random() * tables.length);
 		let n = tables[tableIndex];
 		let m = Math.floor(Math.random() * 10) + 1;
