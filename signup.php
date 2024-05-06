@@ -1,3 +1,19 @@
+<?php
+include("parametre.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    if (!empty($username) && !empty($password)) {
+        $random_id = uniqid();
+        $file = 'utilisateurs.txt';
+        $fp = fopen($file, 'a');
+        fwrite($fp, "$username;$password;$random_id\n");
+        fclose($fp);
+        include("multiplication.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +23,7 @@
 </head>
 <body>
     <h2>Créer un compte</h2>
-    <form action="/inscription" method="post">
+    <form action=<?php echo $url."/signup.php"; ?> method="post">
         <div>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required>
