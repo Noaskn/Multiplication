@@ -71,6 +71,23 @@ input[type="submit"] {
     font-size: 30px;
 }
 
+.bouton{
+    padding: 5px 5px;
+    margin: 0px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+    color: black;
+    border: 1px solid black; /* Ajout d'une bordure noire */
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
 #finDuJeu {
     float: right;
+}
+
+#reselectNiveau {
+    float: left;
 }
