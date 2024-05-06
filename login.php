@@ -1,5 +1,6 @@
 <?php
 include("parametre.php");
+$error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -15,22 +16,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         }
-        echo "Identifiants invalides. Veuillez réessayer.";
+        $error = "Identifiant invalide. Veuillez réessayer.";
         fclose($fp);
-        exit();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <title>Inscription</title>
+    <title>Connexion</title>
 </head>
 <body>
     <h2>Connexion</h2>
-    <form action=<?php echo $url."/login.php"; ?> method="post">
+    <?php if (!empty($error)) echo "<p>$error</p>"; ?>
+    <form action="" method="post">
         <div>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required>
@@ -40,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" id="password" name="password" required>
         </div>
         <div>
-            <input type="submit" value="Cr&eacute;er un compte">
+            <input type="submit" value="Se connecter">
         </div>
     </form>
 </body>
