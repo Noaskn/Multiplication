@@ -101,9 +101,8 @@ document.addEventListener("DOMContentLoaded", function() {
         choixNiveauDiv.style.display = "block";
     });
 
-    finDuJeuButton.addEventListener("click", function() {
-       //Faudra envoyer dans une page php
-    });
+
+
 
     function afficherTemps(secondes) {
         const minutes = Math.floor(secondes / 60);
@@ -120,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function() {
             afficherTemps(tempsEcoule);
         }, 1000);
     }
+	
+	function updatelien(){
+		document.getElementById("finDuJeu").src = "score.php?score" + score + "userid=" + uniqid; 
+	}
 
     validerButton.addEventListener("click", function() {
         event.preventDefault();
@@ -173,6 +176,9 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("input").value = "";
         demarrerChronometre();
         dernierTempsReponse = Date.now();
+		updatelien();
+
+
 
         if (niveau === "facile") {
             facile();
