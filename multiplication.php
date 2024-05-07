@@ -21,9 +21,8 @@
             <button id="valider" class="valider">Valider</button>
             <div id="timer">00:00</div>
 			<p id="bonusMessage"></p>
-
-            <button id="reselectNiveau">Rechoisir le niveau</button>
-            <button id="finDuJeu">Fin du jeu</button>
+            <button class="bouton" id="reselectNiveau">Rechoisir le niveau</button>
+			<a class="bouton" id='finDuJeu' href=<?php echo $url."/score.php"; ?> >Fin du jeu</a>
             <p id="resultat"></p>
         </div>
         <script type="text/javascript" src="multiplication.js"></script>
