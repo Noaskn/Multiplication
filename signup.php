@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $random_id = uniqid();
         $file = 'utilisateurs.txt';
         $fp = fopen($file, 'a');
-        fwrite($fp, "$username;$password;$random_id\n");
+        fwrite($fp, "$username;$password;$random_id;0\n");
         fclose($fp);
         include("multiplication.php");
         exit();
