@@ -4,6 +4,7 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
+    $type = $_POST['type'] ?? '';
     if (!empty($username) && !empty($password)) {
         $file = 'utilisateurs.txt';
         $random_id = uniqid();
@@ -11,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fp = fopen($file, 'w');
         foreach ($lines as $line) {
             $parts = explode(';', $line);
-            if ($parts[0] == $username && $parts[1] == $password) {
-                fwrite($fp, "$username;$password;$random_id;$parts[3]\n");
+            if ($parts[0] == $username && $parts[1] == $password && $parts[4] == $type) {
+                fwrite($fp, "$username;$password;$random_id;$parts[3];$type\n");
                 fclose($fp);
                 include("multiplication.php");
                 exit();
@@ -44,6 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div>
             <label for="password">Mot de passe :</label>
             <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="type"></label>
+            <input type="radio" name="type" value="Professeur" checked="checked" /> Professeur
+            <input type="radio" name="type" value="Elève" /> Elève
         </div>
         <div>
             <input type="submit" value="Se connecter">
