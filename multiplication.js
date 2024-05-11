@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 	
 	function updatelien(){
-		let url = "score.php?score=" + score + "&userid=" + uniqid; 
+	let url = "score.php?score=" + score + "&userid=" + uniqid; 
         document.getElementById("finDuJeu").href = url; 
 	}
 
