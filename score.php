@@ -38,6 +38,7 @@ $search_result = [];
 $searched_username = "";
 $searched_score = "";
 $searched_rank = "";
+$search_not_found = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $search_term = $_POST['search'] ?? '';
@@ -51,6 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 break;
             }
         }
+        if (empty($search_result)) {
+            $search_not_found = true;
+        }
     }
 }
 ?>
@@ -62,14 +66,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>HighScore</title>
 </head>
 <body>
-    <h2>Recherche d'utilisateur</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="search">Rechercher un utilisateur :</label>
-        <input type="text" id="search" name="search">
-        <input type="submit" value="Rechercher">
+        <label for="search" class="recherche">Rechercher un utilisateur :</label>
+        <input type="text" id="search" name="search" class="recherche">
+        <input type="submit" value="Rechercher" class="recherche">
     </form>
-    <?php if (!empty($search_result)): ?>
-        <div>
+    <?php if ($search_not_found): ?>
+        <div class="recherche">
+            <h3>Résultats de la recherche :</h3>
+            <p>L'utilisateur recherché est introuvable.</p>
+        </div>
+    <?php elseif (!empty($search_result)): ?>
+        <div class="recherche">
             <h3>Résultats de la recherche :</h3>
             <p>Nom d'utilisateur : <?php echo $searched_username; ?></p>
             <p>Classement : <?php echo $searched_rank; ?></p>
