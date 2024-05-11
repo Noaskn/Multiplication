@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let dernierTempsReponse = debutJeu;
     let correctResponses = 0;
     let derniersIncorrects = [];
+	
 
     document.getElementById("input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -67,42 +68,46 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     facileButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        facile();
-        niveau = "facile";
-        if (!timerInterval) {
-            demarrerChronometre();
-        }
-    });
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    facile();
+    niveau = "facile";
+    if (!timerInterval) {
+        demarrerChronometre();
+    }
+    // Ajoutez ceci pour masquer le formulaire
+    document.getElementById("code").style.display = "none";
+});
 
-    intermediaireButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        intermediaire();
-        niveau = "intermediaire";
-        if (!timerInterval) {
-            demarrerChronometre();
-        }
-    });
+intermediaireButton.addEventListener("click", function() {
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    intermediaire();
+    niveau = "intermediaire";
+    if (!timerInterval) {
+        demarrerChronometre();
+    }
+    // Ajoutez ceci pour masquer le formulaire
+    document.getElementById("code").style.display = "none";
+});
 
-    difficileButton.addEventListener("click", function() {
-        appDiv.style.display = "block";
-        choixNiveauDiv.style.display = "none";
-        difficile();
-        niveau = "difficile";
-        if (!timerInterval) {
-            demarrerChronometre();
-        }
-    });
+difficileButton.addEventListener("click", function() {
+    appDiv.style.display = "block";
+    choixNiveauDiv.style.display = "none";
+    difficile();
+    niveau = "difficile";
+    if (!timerInterval) {
+        demarrerChronometre();
+    }
+    // Ajoutez ceci pour masquer le formulaire
+    document.getElementById("code").style.display = "none";
+});
+
 
     reselectNiveauButton.addEventListener("click", function() {
         appDiv.style.display = "none";
         choixNiveauDiv.style.display = "block";
     });
-
-
-
 
     function afficherTemps(secondes) {
         const minutes = Math.floor(secondes / 60);
@@ -119,11 +124,36 @@ document.addEventListener("DOMContentLoaded", function() {
             afficherTemps(tempsEcoule);
         }, 1000);
     }
-	
-	function updatelien(){
-	let url = "score.php?score=" + score + "&userid=" + uniqid; 
+    
+    document.getElementById("code").addEventListener("submit", function(event) {
+        event.preventDefault(); // Empêcher la soumission automatique du formulaire
+
+        // Récupérer la valeur du champ de code
+        let code = document.getElementById("code").value;
+
+        // Effectuer une requête AJAX pour vérifier si le code existe
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "verifierCode.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let response = xhr.responseText;
+                if (response === "existe") {
+                    // Rediriger l'utilisateur vers multiplicationgroupe.php si le code existe
+                    window.location.href = "multiplicationgroupe.php";
+                } else {
+                    // Afficher un message d'erreur si le code n'existe pas
+                    alert("Code invalide. Veuillez réessayer.");
+                }
+            }
+        };
+        xhr.send("code=" + encodeURIComponent(code));
+    });
+
+    function updatelien(){
+        let url = "score.php?score=" + score + "&userid=" + uniqid; 
         document.getElementById("finDuJeu").href = url; 
-	}
+    }
 
     validerButton.addEventListener("click", function() {
         event.preventDefault();
@@ -177,9 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("input").value = "";
         demarrerChronometre();
         dernierTempsReponse = Date.now();
-		updatelien();
-
-
+        updatelien();
 
         if (niveau === "facile") {
             facile();
