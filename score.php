@@ -18,9 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         fclose($fp);
     }
 }
+
 function comparerScores($a, $b) {
     return $b['score'] - $a['score'];
 }
+
 $utilisateurs = [];
 $fichier = fopen("utilisateurs.txt", "r");
 while ($ligne = fgets($fichier)) {
@@ -31,16 +33,49 @@ while ($ligne = fgets($fichier)) {
 }
 fclose($fichier);
 usort($utilisateurs, 'comparerScores');
+
+$search_result = [];
+$searched_username = "";
+$searched_score = "";
+$searched_rank = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $search_term = $_POST['search'] ?? '';
+    if (!empty($search_term)) {
+        foreach ($utilisateurs as $classement => $utilisateur) {
+            if (stripos($utilisateur['nom'], $search_term) !== false) {
+                $search_result[] = $utilisateur;
+                $searched_username = $utilisateur['nom'];
+                $searched_score = $utilisateur['score'];
+                $searched_rank = $classement + 1;
+                break;
+            }
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
     <title>HighScore</title>
 </head>
 <body>
+    <h2>Recherche d'utilisateur</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label for="search">Rechercher un utilisateur :</label>
+        <input type="text" id="search" name="search">
+        <input type="submit" value="Rechercher">
+    </form>
+    <?php if (!empty($search_result)): ?>
+        <div>
+            <h3>Résultats de la recherche :</h3>
+            <p>Nom d'utilisateur : <?php echo $searched_username; ?></p>
+            <p>Classement : <?php echo $searched_rank; ?></p>
+            <p>Score : <?php echo $searched_score; ?></p>
+        </div>
+    <?php endif; ?>
     <table border="1">
         <caption>HIGHSCORE</caption>
         <tr>
