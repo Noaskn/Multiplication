@@ -9,7 +9,7 @@
     
     <form>
         <input type="text" id="code" readonly>
-        <button type="button" onclick="genererCode()">Générer un code</button>
+        <button type="button" onclick="genererCode()"  placeholder="Oblogatoire"  required>Générer un code</button>
         <div>
             <input id="facile" type="radio" name="niveau" value="facile" checked="checked">
             <label for="facile">Facile</label>
