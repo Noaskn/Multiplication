@@ -9,22 +9,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $file = 'utilisateurs.txt';
         $random_id = uniqid();
         $lines = file($file);
-        $fp = fopen($file, 'w');
+        $found = false;
+        $updated_lines = [];
         foreach ($lines as $line) {
             $parts = explode(';', $line);
             if ($parts[0] == $username && $parts[1] == $password && rtrim($parts[4]) == $type) {
-                fwrite($fp, "$username;$password;$random_id;$parts[3];$type\n");
-                fclose($fp);
-                include("multiplication.php");
-                exit();
+                $found = true;
+                $updated_lines[] = "$username;$password;$random_id;$parts[3];$type\n";
             }
-            fwrite($fp, $line);
+            else {
+                $updated_lines[] = $line;
+            }
         }
-        $error = "Identifiant invalide. Veuillez réessayer.";
-        fclose($fp);
+        if (!$found) {
+            $error = "Identifiant invalide. Veuillez réessayer.";
+        }
+        else {
+            file_put_contents($file, $updated_lines);
+            fclose($file);
+            include("multiplication.php");
+            exit();
+        }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
