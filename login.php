@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fp = fopen($file, 'w');
         foreach ($lines as $line) {
             $parts = explode(';', $line);
-            if ($parts[0] == $username && $parts[1] == $password && $parts[4] == $type) {
+            if ($parts[0] == $username && $parts[1] == $password && rtrim($parts[4]) == $type) {
                 fwrite($fp, "$username;$password;$random_id;$parts[3];$type\n");
                 fclose($fp);
                 include("multiplication.php");
