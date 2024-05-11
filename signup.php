@@ -3,11 +3,12 @@ include("parametre.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
+    $type = $_POST['type'] ?? '';
     if (!empty($username) && !empty($password)) {
         $random_id = uniqid();
         $file = 'utilisateurs.txt';
         $fp = fopen($file, 'a');
-        fwrite($fp, "$username;$password;$random_id;0\n");
+        fwrite($fp, "$username;$password;$random_id;0;$type\n");
         fclose($fp);
         include("multiplication.php");
         exit();
@@ -31,6 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div>
             <label for="password">Mot de passe :</label>
             <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="type"></label>
+            <input type="radio" name="type" value="Professeur" checked="checked" /> Professeur
+            <input type="radio" name="type" value="Elève" /> Elève
         </div>
         <div>
             <input type="submit" value="Cr&eacute;er un compte">
