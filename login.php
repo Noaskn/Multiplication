@@ -1,3 +1,4 @@
+
 <?php
 include("parametre.php");
 $error = '';
@@ -26,8 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         else {
             file_put_contents($file, $updated_lines);
-            fclose($file);
-            include("multiplication.php");
+            
+            if ($type == "Professeur"){
+					include("professeur.php");
+				}
+                else{
+					include("multiplication.php");
+				}
+                exit();
             exit();
         }
     }
@@ -44,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h2>Connexion</h2>
     <?php if (!empty($error)) echo "<p>$error</p>"; ?>
-    <form action=<?php echo $url."/login.php"; ?> method="post">
+    <form action=<?php echo $url."/login.php"; ?> class="basique" method="post">
         <div>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required>
