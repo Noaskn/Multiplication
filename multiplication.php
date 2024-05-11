@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="styles.css">
+        
         <title>Multiplication</title>
     </head>
     <body>
@@ -11,6 +12,13 @@
             <a href="#" class="button" id="facile">Facile</a>
             <a href="#" class="button" id="intermediaire">Intermédiaire</a>
             <a href="#" class="button" id="difficile">Difficile</a>
+        </div>
+		<div >
+            <form id="code" action="verifierCode.php" method="post">
+				<label for="code">Entrez votre code :</label>
+				<input type="number" id="code" name="code" required>
+				<a class="bouton" id='finDuJeu' href=<?php echo $url."/multiplicationGroupe.php"; ?>>Valider</a>
+			</form>
         </div>
         <div class="app" style="display:none;">
             <header>
@@ -31,3 +39,19 @@
         <script type="text/javascript" src="multiplication.js"></script>
     </body>
 </html>
+
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $code = $_POST["code"] ?? '';
+
+    $contenu = file_get_contents("groupe.txt");
+
+    if (preg_match("/Code: $code  Niveau: (\w+)/", $contenu, $matches)) {
+        include("multiplicationGroupe.php");
+        exit;
+    } else {
+        echo "Code invalide. Veuillez réessayer.";
+    }
+}
+?>
