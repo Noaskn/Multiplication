@@ -10,7 +10,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fp = fopen($file, 'a');
         fwrite($fp, "$username;$password;$random_id;0;$type\n");
         fclose($fp);
-        include("multiplication.php");
+        if ($type == "Professeur"){
+					include("professeur.php");
+				}
+                else{
+					include("multiplication.php");
+				}
+                exit();
         exit();
     }
 }
@@ -24,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h2>Créer un compte</h2>
-    <form action=<?php echo $url."/signup.php"; ?> method="post">
+    <form action=<?php echo $url."/signup.php"; ?> class="basique" method="post">
         <div>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required>
