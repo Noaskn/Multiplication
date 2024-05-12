@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $_POST["code"] ?? '';
     $niveau = $_POST["niveau"] ?? '';
 
-    $contenu = "Code: $code  Niveau: $niveau\n"; // Ajout d'un saut de ligne après chaque enregistrement
+    $contenu = "$code $niveau\n"; // Ajout d'un saut de ligne après chaque enregistrement
 
     $fichier = fopen("groupe.txt", "a") or die("Impossible d'ouvrir le fichier.");
 
