@@ -32,30 +32,50 @@
     </form>
 
     <div id="donnees_classe">
-        <?php
-        include("parametre.php");
+      <?php
+include("parametre.php");
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["afficher_resultats"])) {
-            $code_classe = $_POST["code_classe"] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["afficher_resultats"])) {
+    $code_classe = $_POST["code_classe"] ?? '';
 
-            $fichier_nom = "groupe_$code_classe.txt";
-            if (file_exists($fichier_nom)) {
-                $contenu = file($fichier_nom);
+    $fichier_nom = "$code_classe.txt";
+    if (file_exists($fichier_nom)) {
+        $contenu = file($fichier_nom);
 
-                echo "<table border='1'>";
-                foreach ($contenu as $ligne) {
-                    $donnees = explode(" ", $ligne);
-                    echo "<tr>";
-                    echo "<td>".$donnees[0]."</td>"; 
-                    echo "<td>".$donnees[3]."</td>"; 
-                    echo "</tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "Aucune donnée trouvée pour ce code de classe.";
-            }
+        $donnees_scores = [];
+        foreach ($contenu as $ligne) {
+            $donnees = explode(";", $ligne);
+            $score = intval($donnees[3]); 
+            $donnees_scores[$score] = $donnees;
         }
-        ?>
+
+        krsort($donnees_scores);
+
+        echo "<table border='1'>";
+        echo "<caption>HIGHSCORE</caption>";
+        echo "<tr>";
+        echo "<th>Classement</th>";
+        echo "<th>Nom de l'utilisateur</th>";
+        echo "<th>Score</th>";
+        echo "</tr>";
+
+        $classement = 1;
+        foreach ($donnees_scores as $donnees) {
+            echo "<tr>";
+            echo "<td>".$classement."</td>"; 
+            echo "<td>".$donnees[0]."</td>"; 
+            echo "<td>".$donnees[3]."</td>"; 
+            echo "</tr>";
+            $classement++; 
+        }
+        echo "</table>";
+    } else {
+        echo "Aucune donnée trouvée pour ce code de classe.";
+    }
+}
+?>
+
+
     </div>
 
     <div id="message" style="display:none;"></div>
