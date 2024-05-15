@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("parametre.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -6,21 +7,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'] ?? '';
     $type = $_POST['type'] ?? '';
     $bloque = 'Non';
+
     if (!empty($username) && !empty($password)) {
         $random_id = uniqid();
+        $_SESSION['random_id'] = $random_id;
+        $data = "$username;$password;$random_id;0;$type;$bloque\n";
         $file = 'utilisateurs.txt';
-        $fp = fopen($file, 'a');
-        fwrite($fp, "$username;$password;$random_id;0;$type;$bloque\n");
-        fclose($fp);
+
+        file_put_contents($file, $data, FILE_APPEND);
+
         if ($type == "Professeur"){
             include("professeur.php");
-        } else {
-            include("multiplication.php");
+        }
+        else {
+            include("mode.php");
         }
         exit();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h2>Créer un compte</h2>
-    <form action=<?php echo $url."/signup.php"; ?> class="basique" method="post">
+    <form action="<?php echo $url."/signup.php"; ?>" class="basique" method="post">
         <div class="debut">
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required>
@@ -44,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="radio" name="type" value="Elève" /> Elève
         </div>
         <div class="submit">
-            <input type="submit" value="Cr&eacute;er un compte">
+            <input type="submit" value="Créer un compte">
         </div>
     </form>
 </body>
