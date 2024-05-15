@@ -121,6 +121,6 @@
 
     <div id="message" style="display:none;"></div>
     <script type="text/javascript" src="professeur.js"></script>
-
+    <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
