@@ -9,13 +9,13 @@
     
     <form>
         <input type="text" id="code" readonly>
-        <button type="button" onclick="genererCode()"  placeholder="Oblogatoire"  required>Générer un code</button>
+        <button type="button" onclick="genererCode()"  placeholder="Obligatoire"  required>Générer un code</button>
         <div>
             <input id="facile" type="radio" name="niveau" value="facile" checked="checked">
             <label for="facile">Facile</label>
             
-            <input id="moyen" type="radio" name="niveau" value="moyen">
-            <label for="moyen">Moyen</label>
+            <input id="intermediaire" type="radio" name="niveau" value="intermediaire">
+            <label for="intermediaire">Intermediaire</label>
             
             <input id="difficile" type="radio" name="niveau" value="difficile">
             <label for="difficile">Difficile</label>
@@ -30,7 +30,6 @@
     <input type="text" name="code_classe" placeholder="Entrez le code de votre classe" required>
     <button type="submit">Afficher les résultats</button>
 </form>
-
 
     <?php if (!empty($_POST['code_classe'])): ?>
     <div id="donnees_classe">
@@ -124,3 +123,22 @@
     <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
+
+<?php
+include("parametre.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $code = $_POST["code"] ?? '';
+    $niveau = $_POST["niveau"] ?? '';
+
+    $contenu = "$code $niveau\n"; // Ajout d'un saut de ligne après chaque enregistrement
+
+    $fichier = fopen("groupe.txt", "a") or die("Impossible d'ouvrir le fichier.");
+
+    fwrite($fichier, $contenu);
+
+    fclose($fichier);
+
+    exit;
+}
+?>
