@@ -1,10 +1,13 @@
+<?php
+session_start();
+$random_id = $_SESSION['random_id'] ?? '';
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="styles.css">
-        <title>Multiplication</title>
+        <title>Solo</title>
     </head>
     <body>
         <div id="choixNiveau">
@@ -12,13 +15,6 @@
             <a href="#" class="button" id="facile">Facile</a>
             <a href="#" class="button" id="intermediaire">Intermédiaire</a>
             <a href="#" class="button" id="difficile">Difficile</a>
-        </div>
-		<div >
-            <form  id="code" action="verifierCode.php" method="post">
-				<label for="code">Entrez votre code :</label>
-				<input type="number" id="code" name="code" required>
-				<button type="submit" id="valider" >Valider</button>
-			</form>
         </div>
         <div class="app" style="display:none;">
             <header>
@@ -31,25 +27,12 @@
 			<p id="bonusMessage"></p>
             <button class="bouton" id="reselectNiveau">Rechoisir le niveau</button>
             <script>
-                var uniqid = "<?php echo $random_id; ?>";
+                var uniqid = "<?php echo isset($_SESSION['random_id']) ? $_SESSION['random_id'] : ''; ?>";
             </script>
-            <a class="bouton" id='finDuJeu' href=<?php echo $url."/score.php"; ?>>Fin du jeu</a>
+            <a class="bouton" id='finDuJeu' href="<?php echo $url . "/score.php"; ?>">Fin du jeu</a>
             <p id="resultat"></p>
         </div>
         <script type="text/javascript" src="multiplication.js"></script>
     </body>
 </html>
-
-<?php
-$code = $_POST["code"] ?? '';
-
-$contenu = file_get_contents("groupe.txt");
-
-if (preg_match("/Code: $code  Niveau: (\w+)/", $contenu)) {
-    echo "existe";
-} else {
-    echo "inexiste";
-}
-?>
-
 
