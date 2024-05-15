@@ -3,18 +3,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST['mode'] == 'solo') {
         header('Location: multiplication.php');
         exit();
-    }
-    elseif ($_POST['mode'] == 'groupe') {
+    } elseif ($_POST['mode'] == 'groupe') {
         header('Location: groupe.php');
         exit();
     }
 }
-
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Mode de Jeu</title>
 </head>
 <body>
@@ -26,5 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="groupe">Groupe</label><br>
         <input type="submit" value="Valider">
     </form>
+    <a href="change_password.php">Changer le mot de passe</a>
+    
 </body>
 </html>
