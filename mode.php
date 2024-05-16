@@ -18,7 +18,7 @@
     <title>Mode de Jeu</title>
 </head>
 <body>
-    <form action="mode.php" method="post">
+    <form class='niveau' action="mode.php" method="post">
         <p>Sélectionnez votre mode de jeu :</p>
         <input type="radio" id="solo" name="mode" value="solo">
         <label for="solo">Solo</label><br>
