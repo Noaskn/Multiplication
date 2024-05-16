@@ -1,7 +1,7 @@
 <?php
-    session_start();
-    $random_id = $_SESSION['random_id'] ?? '';
-    $url='';
+session_start();
+$random_id = $_SESSION['random_id'] ?? '';
+$url='';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Solo</title>
-	<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div id="choixNiveau">
@@ -23,7 +23,7 @@
                 <span class="score">Score : <span id="score"> 0</span></span>
             </header>
             <h2><span id="num1">0</span> x <span id="num2">0</span> ? </h2>
-            <input type="number" placeholder="Entrer la réponse" id="input">
+            <input class='reponse' type="number" placeholder="Entrer la réponse" id="input">
             <button id="valider" class="valider">Valider</button>
             <div id="timer">00:00</div>
 			<p id="bonusMessage"></p>
@@ -31,7 +31,7 @@
             <script>
                 var uniqid = "<?php echo isset($_SESSION['random_id']) ? $_SESSION['random_id'] : ''; ?>";
             </script>
-            <a class="bouton" id='finDuJeu' href="<?php echo $url . "/score.php"; ?>">Fin du jeu</a>
+            <a class="bouton" id='finDuJeu' href="<?php echo $url."/score.php"; ?>">Fin du jeu</a>
             <p id="resultat"></p>
         </div>
         <script type="text/javascript" src="multiplication.js"></script>
