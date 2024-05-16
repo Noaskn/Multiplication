@@ -8,7 +8,6 @@
     <p><h2>Voulez-vous vous connecter ou créer un compte ?</h2></p>
     <a href="signup.php" class="button">Créer un compte</a>
     <a href="login.php" class="button">Se connecter</a>
-
     <h2>Espace administrateur</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="code">Entrez votre code :</label>
@@ -17,18 +16,19 @@
     </form>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $codeSaisi = $_POST["code"] ?? '';
-        $fichierCodesAdmin = "administrateur.txt";
-        $contenuFichier = file_get_contents($fichierCodesAdmin);
-        if (strpos($contenuFichier, $codeSaisi) !== false) {
-            header("Location: admin.php");
-            exit();
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $codeSaisi = $_POST["code"] ?? '';
+            $fichierCodesAdmin = "administrateur.txt";
+            $contenuFichier = file_get_contents($fichierCodesAdmin);
+            if(strpos($contenuFichier, $codeSaisi) !== false){
+                header("Location: admin.php");
+                exit();
+            }
+            else{
+                echo "<p>Code incorrect. Veuillez réessayer.</p>";
+            }
         }
-        else {
-            echo "<p>Code incorrect. Veuillez réessayer.</p>";
-        }
-    }
     ?>
+
 </body>
 </html>
