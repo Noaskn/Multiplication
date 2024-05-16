@@ -72,6 +72,7 @@
         <input type="text" id="search" name="search" class="recherche">
         <input type="submit" value="Rechercher" class="recherche">
     </form>
+    <br>
     <?php if($search_not_found): ?>
         <div class="recherche">
             <h3>Résultats de la recherche :</h3>
