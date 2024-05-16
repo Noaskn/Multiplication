@@ -91,18 +91,21 @@
         </tbody>
     </table>
     <h2>Modifier le code administrateur</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form class='niveau' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="nouveau_code">Nouveau code administrateur :</label>
         <input type="number" id="nouveau_code" name="nouveau_code" required>
         <button type="submit">Valider</button>
     </form>
+	<br><br>
 
     <?php if (!empty($message)) : ?>
     <p><?php echo $message; ?></p>
     <?php endif; ?>
 
+	<div class='niveau'>
     <h3>Code administrateur actuel :</h3>
     <p><?php echo $code_admin; ?></p>
+	</div>
     <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
