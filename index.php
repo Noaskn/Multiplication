@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Page principale</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <p><h2>Voulez-vous vous connecter ou créer un compte ?</h2></p>
