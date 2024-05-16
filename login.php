@@ -13,7 +13,7 @@
             $updated_lines = [];
             foreach($lines as $line){
                 $parts = explode(';', $line);
-                if(rtrim($parts[5]) == 'Oui'){
+                if (isset($parts[5]) && rtrim($parts[5]) == 'Oui'){
                     $error = "Vous êtes bloqué. Veuillez contacter l'administrateur.";
                     break;
                 }
