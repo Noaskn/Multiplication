@@ -1,6 +1,7 @@
 <?php
     session_start();
     $random_id = $_SESSION['random_id'] ?? '';
+    $url='';
 ?>
 
 <!DOCTYPE html>
