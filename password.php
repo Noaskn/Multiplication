@@ -52,6 +52,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Changement de Mot de Passe</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div>
