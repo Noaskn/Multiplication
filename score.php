@@ -105,6 +105,7 @@
             ?>
         <?php endforeach; ?>
     </table>
+    <br>
     <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
