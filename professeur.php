@@ -45,7 +45,7 @@
             $donnees_scores = [];
             foreach ($contenu as $ligne) {
                 $donnees = explode(";", $ligne);
-                $score = intval($donnees[3]); 
+                $score = intval($donnees[2]); 
                 $donnees_scores[$score] = $donnees;
             }
 
@@ -64,7 +64,7 @@
                 echo "<tr>";
                 echo "<td>".$classement."</td>"; 
                 echo "<td>".$donnees[0]."</td>"; 
-                echo "<td>".$donnees[3]."</td>"; 
+                echo "<td>".$donnees[2]."</td>"; 
                 echo "</tr>";
                 $classement++; 
             }
@@ -99,7 +99,7 @@
                         if (stripos($donnees[0], $search_term) !== false) {
                             echo "<p>Résultat de la recherche : <p>";
                             echo "<p>Nom d'utilisateur : ".$donnees[0]."<p>";
-                            echo "<p>Score : ".$donnees[3]."</p>";
+                            echo "<p>Score : ".$donnees[2]."</p>";
                             $found = true;
                         }
                     }
@@ -123,8 +123,7 @@
 		<a href="change_password.php">Changer le mot de passe</a>
 	</div>
     <script type="text/javascript" src="professeur.js"></script>
-    <script type="text/javascript" src="professeur.js"></script>
-
+    <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
 
@@ -135,8 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $_POST["code"] ?? '';
     $niveau = $_POST["niveau"] ?? '';
 
-    $contenu = "$code $niveau\n"; // Ajout d'un saut de ligne après chaque enregistrement
-
+    $contenu = "$code $niveau\n";
     $fichier = fopen("groupe.txt", "a") or die("Impossible d'ouvrir le fichier.");
 
     fwrite($fichier, $contenu);
