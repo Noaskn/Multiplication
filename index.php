@@ -9,10 +9,10 @@
     <a href="signup.php" class="button">Créer un compte</a>
     <a href="login.php" class="button">Se connecter</a>
     <h2>Espace administrateur</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form class="codeadm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="code">Entrez votre code :</label>
         <input type="number" id="code" name="code" required>
-        <button type="submit">Valider</button>
+        <button class="submitcompte" type="submit">Valider</button>
     </form>
 
     <?php
