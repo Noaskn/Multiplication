@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $found = true;
             $niveau = $niveauFromFile;
             $_SESSION['niveau'] = $niveau;
+            $_SESSION['code'] = $code;
             $utilisateurFile = 'utilisateurs.txt';
             $userInfo = '';
             $userFound = false;
