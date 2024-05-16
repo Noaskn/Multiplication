@@ -41,6 +41,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Admin</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Liste des Utilisateurs</h2>
