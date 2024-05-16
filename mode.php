@@ -1,14 +1,16 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST['mode'] == 'solo') {
-        header('Location: multiplication.php');
-        exit();
-    } elseif ($_POST['mode'] == 'groupe') {
-        header('Location: groupe.php');
-        exit();
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if($_POST['mode'] == 'solo'){
+            header('Location: multiplication.php');
+            exit();
+        }
+        elseif($_POST['mode'] == 'groupe'){
+            header('Location: groupe.php');
+            exit();
+        }
     }
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,6 +27,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Valider">
     </form>
     <a href="change_password.php">Changer le mot de passe</a>
-    
 </body>
 </html>
