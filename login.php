@@ -49,6 +49,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Connexion</h2>
@@ -69,7 +70,7 @@
             <input type="radio" name="type" value="Professeur" checked="checked" /> Professeur
             <input type="radio" name="type" value="Elève" /> Elève
         </div>
-        <div class="submit">
+        <div class="submitcompte">
             <input type="submit" value="Se connecter">
         </div>
     </form>
