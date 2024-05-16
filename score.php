@@ -64,6 +64,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HighScore</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
