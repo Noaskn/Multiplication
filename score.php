@@ -71,12 +71,12 @@
         <input type="text" id="search" name="search" class="recherche">
         <input type="submit" value="Rechercher" class="recherche">
     </form>
-    <?php if ($search_not_found): ?>
+    <?php if($search_not_found): ?>
         <div class="recherche">
             <h3>Résultats de la recherche :</h3>
             <p>L'utilisateur recherché est introuvable.</p>
         </div>
-    <?php elseif (!empty($search_result)): ?>
+    <?php elseif(!empty($search_result)): ?>
         <div class="recherche">
             <h3>Résultats de la recherche :</h3>
             <p>Nom d'utilisateur : <?php echo $searched_username; ?></p>
