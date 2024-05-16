@@ -38,10 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $codeFile = $code . '.txt';
                     $tempFile = 'temp.txt';
 
-                    if (file_exists($codeFile) && is_readable($codeFile)) {
-                        $fpRead = fopen($codeFile, 'r');
-                        $fpWrite = fopen($tempFile, 'w');
-                        $userInCodeFile = false;
+                    // Attempt to create and write to the temp file
+                    $fpRead = file_exists($codeFile) && is_readable($codeFile) ? fopen($codeFile, 'r') : null;
+                    $fpWrite = fopen($tempFile, 'w');
+                    if (!$fpWrite) {
+                        echo "Failed to open temp file for writing.";
+                        exit;
+                    }
+                    $userInCodeFile = false;
+                    if ($fpRead) {
                         while ($line = fgets($fpRead)) {
                             $lineData = explode(";", $line);
                             if (isset($lineData[0]) && trim($lineData[0]) == trim($donnees[0])) {
@@ -52,14 +57,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                             fwrite($fpWrite, $line);
                         }
-                        if (!$userInCodeFile) {
-                            fwrite($fpWrite, $donnees[0] . ';' . $donnees[2] . ';' . $donnees[3] . PHP_EOL);
-                        }
-
                         fclose($fpRead);
-                        fclose($fpWrite);
+                    }
+                    if (!$userInCodeFile) {
+                        fwrite($fpWrite, $donnees[0] . ';' . $donnees[2] . ';' . $donnees[3] . PHP_EOL);
+                    }
+                    fclose($fpWrite);
 
-                        rename($tempFile, $codeFile);
+                    // Rename temp file to codeFile
+                    if (!rename($tempFile, $codeFile)) {
+                        echo "Failed to rename temp file to $codeFile.";
+                        exit;
                     }
                 }
                 break;
