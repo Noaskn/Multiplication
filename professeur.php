@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Page principale</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>Génération d'un code aléatoire pour créer un groupe :</p>
-    <form>
+    <h4>Génération d'un code aléatoire pour créer un groupe :</h4>
+    <form class="niveau">
         <input type="text" id="code" readonly>
         <button type="button" onclick="genererCode()"  placeholder="Obligatoire"  required>Générer un code</button>
         <div>
@@ -17,10 +18,12 @@
             <input id="difficile" type="radio" name="niveau" value="difficile">
             <label for="difficile">Difficile</label>
         </div>
-        <button type="button" onclick="enregistrer()">Enregistrer</button>
+         <p><button class="submitcode" type="button" onclick="enregistrer()">Enregistrer</button></p>
+	 <div id="message" style="display: none;"></div>
     </form>
-    <p>Indiquez le code de votre classe :</p>
-    <form action="<?php echo $url."/professeur.php"; ?>" method="post">
+	
+    <h4>Indiquez le code de votre classe :<h4p>
+    <form class="niveau" action="<?php echo $url."/professeur.php"; ?>" method="post">
     <input type="text" name="code_classe" placeholder="Entrez le code de votre classe" required>
     <button type="submit">Afficher les résultats</button>
 </form>
@@ -63,8 +66,8 @@
             }
         ?>
     </div>
-    <div id="recherche_utilisateur">
-        <h2>Recherche d'utilisateur</h2>
+    <div class="niveau" id="recherche_utilisateur">
+        <h4>Recherche d'utilisateur</h4>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input type="hidden" name="code_classe" value="<?php echo isset($_POST['code_classe']) ? $_POST['code_classe'] : ''; ?>">
             <label for="search_user">Rechercher un utilisateur :</label>
@@ -103,9 +106,10 @@
             }
         ?>
     </div>
+    <br><br>
     <?php endif; ?>
     <div id="message" style="display:none;"></div>
-	<div>
+	<div class='mdp'>
 		<a href="password.php">Changer le mot de passe</a>
 	</div>
     <script type="text/javascript" src="professeur.js"></script>
