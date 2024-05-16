@@ -106,7 +106,7 @@
     <?php endif; ?>
     <div id="message" style="display:none;"></div>
 	<div>
-		<a href="change_password.php">Changer le mot de passe</a>
+		<a href="password.php">Changer le mot de passe</a>
 	</div>
     <script type="text/javascript" src="professeur.js"></script>
     <a href="index.php"><button>Retourner à l'accueil</button></a>
