@@ -26,6 +26,6 @@
         <label for="groupe">Groupe</label><br>
         <input type="submit" value="Valider">
     </form>
-    <a href="change_password.php">Changer le mot de passe</a>
+    <a href="password.php">Changer le mot de passe</a>
 </body>
 </html>
