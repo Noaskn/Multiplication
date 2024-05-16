@@ -1,68 +1,76 @@
 <?php
 session_start();
 
+$url='';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $_POST['code'] ?? '';
     $found = false;
     $niveau = '';
 
-    $lines = file('groupe.txt');
-    foreach ($lines as $line) {
-        list($codeFromFile, $niveauFromFile) = explode(" ", trim($line));
-        if ($codeFromFile == $code) {
-            $found = true;
-            $niveau = $niveauFromFile;
-            $_SESSION['niveau'] = $niveau;
-            $_SESSION['code'] = $code;
-            $utilisateurFile = 'utilisateurs.txt';
-            $userInfo = '';
-            $userFound = false;
+    if (file_exists('groupe.txt') && is_readable('groupe.txt')) {
+        $lines = file('groupe.txt');
+        foreach ($lines as $line) {
+            list($codeFromFile, $niveauFromFile) = explode(" ", trim($line));
+            if ($codeFromFile == $code) {
+                $found = true;
+                $niveau = $niveauFromFile;
+                $_SESSION['niveau'] = $niveau;
+                $_SESSION['code'] = $code;
+                $utilisateurFile = 'utilisateurs.txt';
+                $userInfo = '';
+                $userFound = false;
 
-            $fp = fopen($utilisateurFile, 'r');
-            while ($ligne = fgets($fp)) {
-                $donnees = explode(";", $ligne);
-                if (isset($donnees[2]) && trim($donnees[2]) == $_SESSION['random_id']) {
-                    $userInfo = $ligne;
-                    $userFound = true;
-                    break;
-                }
-            }
-            fclose($fp);
-
-            if ($userFound) {
-                $codeFile = $code . '.txt';
-                $tempFile = 'temp.txt';
-                $fpRead = fopen($codeFile, 'r');
-                $fpWrite = fopen($tempFile, 'w');
-                $userInCodeFile = false;
-                while ($line = fgets($fpRead)) {
-                    $lineData = explode(";", $line);
-                    if (isset($lineData[0]) && trim($lineData[0]) == trim($donnees[0])) {
-                        $userInCodeFile = true;
-                        $lineData[1] = trim($donnees[2]);
-                        $lineData[2] = trim($donnees[3]);
-                        $line = implode(';', $lineData) . PHP_EOL;
+                if (file_exists($utilisateurFile) && is_readable($utilisateurFile)) {
+                    $fp = fopen($utilisateurFile, 'r');
+                    while ($ligne = fgets($fp)) {
+                        $donnees = explode(";", $ligne);
+                        if (isset($donnees[2]) && trim($donnees[2]) == $_SESSION['random_id']) {
+                            $userInfo = $ligne;
+                            $userFound = true;
+                            break;
+                        }
                     }
-                    fwrite($fpWrite, $line);
-                }
-                if (!$userInCodeFile) {
-                    fwrite($fpWrite, $donnees[0] . ';' . $donnees[2] . ';' . $donnees[3] . PHP_EOL);
+                    fclose($fp);
                 }
 
-                fclose($fpRead);
-                fclose($fpWrite);
+                if ($userFound) {
+                    $codeFile = $code . '.txt';
+                    $tempFile = 'temp.txt';
 
-                rename($tempFile, $codeFile);
+                    if (file_exists($codeFile) && is_readable($codeFile)) {
+                        $fpRead = fopen($codeFile, 'r');
+                        $fpWrite = fopen($tempFile, 'w');
+                        $userInCodeFile = false;
+                        while ($line = fgets($fpRead)) {
+                            $lineData = explode(";", $line);
+                            if (isset($lineData[0]) && trim($lineData[0]) == trim($donnees[0])) {
+                                $userInCodeFile = true;
+                                $lineData[1] = trim($donnees[2]);
+                                $lineData[2] = trim($donnees[3]);
+                                $line = implode(';', $lineData) . PHP_EOL;
+                            }
+                            fwrite($fpWrite, $line);
+                        }
+                        if (!$userInCodeFile) {
+                            fwrite($fpWrite, $donnees[0] . ';' . $donnees[2] . ';' . $donnees[3] . PHP_EOL);
+                        }
+
+                        fclose($fpRead);
+                        fclose($fpWrite);
+
+                        rename($tempFile, $codeFile);
+                    }
+                }
+                break;
             }
-            break;
         }
     }
 
     if ($found) {
         echo "Le code est valide. Vous êtes dans le niveau : $niveau.";
         $_SESSION['code_valid'] = true;
-    }
-    else {
+    } else {
         echo "Le code n'est pas valide. Veuillez réessayer.";
         $_SESSION['code_valid'] = false;
     }
@@ -97,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var niveau = "<?php echo $_SESSION['niveau']; ?>";
         var uniqid = "<?php echo isset($_SESSION['random_id']) ? $_SESSION['random_id'] : ''; ?>";
     </script>
-    <a class="bouton" id='classe' href="<?php echo $url . "/classe.php"; ?>">Fin du jeu</a>
+    <a class="bouton" id='classe' href="<?php echo $url."/classe.php"; ?>">Fin du jeu</a>
     <script src="groupe.js"></script>
     <?php endif; ?>
 </body>
