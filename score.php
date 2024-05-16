@@ -1,62 +1,62 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $score = $_GET['score'] ?? '';
-    $userid = $_GET['userid'] ?? '';
-
-    if (!empty($score) && !empty($userid)) {
-        $file = 'utilisateurs.txt';
-        $lines = file($file);
-        $fp = fopen($file, 'w');
-        foreach ($lines as $line) {
-            $parts = explode(';', $line);
-            if ($parts[2] == $userid) {
-                $parts[3] = $score;
-                $line = implode(';', $parts);
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        $score = $_GET['score'] ?? '';
+        $userid = $_GET['userid'] ?? '';
+        if(!empty($score) && !empty($userid)){
+            $file = 'utilisateurs.txt';
+            $lines = file($file);
+            $fp = fopen($file, 'w');
+            foreach($lines as $line){
+                $parts = explode(';', $line);
+                if($parts[2] == $userid){
+                    $parts[3] = $score;
+                    $line = implode(';', $parts);
+                }
+                fwrite($fp, $line);
             }
-            fwrite($fp, $line);
+            fclose($fp);
         }
-        fclose($fp);
     }
-}
 
-function comparerScores($a, $b) {
-    return $b['score'] - $a['score'];
-}
-
-$utilisateurs = [];
-$fichier = fopen("utilisateurs.txt", "r");
-while ($ligne = fgets($fichier)) {
-    $donnees = explode(";", $ligne);
-    if (isset($donnees[0]) && isset($donnees[1]) && isset($donnees[4]) && trim($donnees[4]) == "Elève") {
-        $utilisateurs[] = ['nom' => $donnees[0], 'score' => intval($donnees[3])];
+    function comparerScores($a, $b){
+        return $b['score'] - $a['score'];
     }
-}
-fclose($fichier);
-usort($utilisateurs, 'comparerScores');
 
-$search_result = [];
-$searched_username = "";
-$searched_score = "";
-$searched_rank = "";
-$search_not_found = false;
+    $utilisateurs = [];
+    $fichier = fopen("utilisateurs.txt", "r");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $search_term = $_POST['search'] ?? '';
-    if (!empty($search_term)) {
-        foreach ($utilisateurs as $classement => $utilisateur) {
-            if (stripos($utilisateur['nom'], $search_term) !== false) {
-                $search_result[] = $utilisateur;
-                $searched_username = $utilisateur['nom'];
-                $searched_score = $utilisateur['score'];
-                $searched_rank = $classement + 1;
-                break;
+    while($ligne = fgets($fichier)){
+        $donnees = explode(";", $ligne);
+        if(isset($donnees[0]) && isset($donnees[1]) && isset($donnees[4]) && trim($donnees[4]) == "Elève"){
+            $utilisateurs[] = ['nom' => $donnees[0], 'score' => intval($donnees[3])];
+        }
+    }
+
+    fclose($fichier);
+    usort($utilisateurs, 'comparerScores');
+    $search_result = [];
+    $searched_username = "";
+    $searched_score = "";
+    $searched_rank = "";
+    $search_not_found = false;
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $search_term = $_POST['search'] ?? '';
+        if(!empty($search_term)){
+            foreach($utilisateurs as $classement => $utilisateur){
+                if(stripos($utilisateur['nom'], $search_term) !== false){
+                    $search_result[] = $utilisateur;
+                    $searched_username = $utilisateur['nom'];
+                    $searched_score = $utilisateur['score'];
+                    $searched_rank = $classement + 1;
+                    break;
+                }
+            }
+            if(empty($search_result)){
+                $search_not_found = true;
             }
         }
-        if (empty($search_result)) {
-            $search_not_found = true;
-        }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </tr>
         <?php 
         $classement = 1;
-        foreach ($utilisateurs as $utilisateur): 
+        foreach($utilisateurs as $utilisateur): 
         ?>
             <tr>
                 <td><?php echo $classement; ?></td>
