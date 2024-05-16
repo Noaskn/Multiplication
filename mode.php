@@ -16,6 +16,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mode de Jeu</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <form class='niveau' action="mode.php" method="post">
