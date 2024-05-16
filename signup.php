@@ -28,6 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Créer un compte</h2>
@@ -45,7 +46,7 @@
             <input type="radio" name="type" value="Professeur" checked="checked" /> Professeur
             <input type="radio" name="type" value="Elève" /> Elève
         </div>
-        <div class="submit">
+        <div class="submitcompte">
             <input type="submit" value="Créer un compte">
         </div>
     </form>
