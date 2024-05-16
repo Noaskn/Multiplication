@@ -1,3 +1,5 @@
 <?php
+
 $url="http://localhost";
+
 ?>
