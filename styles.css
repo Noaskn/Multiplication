@@ -15,8 +15,8 @@ h4 {
 }
 
 .reponse {
-    padding: 20px 175px; /* Adjust padding to match the button */
-    margin: 10px auto; /* Center the input */
+    padding: 20px 175px; 
+    margin: 10px auto; 
     font-size: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
