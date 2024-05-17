@@ -1,131 +1,113 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $score = $_GET['score'] ?? '';
+    $userid = $_GET['userid'] ?? '';
+
+    if (!empty($score) && !empty($userid)) {
+        $file = 'utilisateurs.txt';
+        $lines = file($file);
+        $fp = fopen($file, 'w');
+        foreach ($lines as $line) {
+            $parts = explode(';', $line);
+            if (isset($parts[2]) && $parts[2] == $userid) {
+                $parts[3] = $score;
+                $line = implode(';', $parts);
+            }
+            fwrite($fp, $line);
+        }
+        fclose($fp);
+    }
+}
+
+function comparerScores($a, $b) {
+    return $b['score'] - $a['score'];
+}
+
+$utilisateurs = [];
+$fichier = fopen("utilisateurs.txt", "r");
+while ($ligne = fgets($fichier)) {
+    $donnees = explode(";", $ligne);
+    if (isset($donnees[0], $donnees[1], $donnees[4]) && trim($donnees[4]) == "Elève") {
+        $utilisateurs[] = ['nom' => $donnees[0], 'score' => intval($donnees[3] ?? 0)];
+    }
+}
+fclose($fichier);
+usort($utilisateurs, 'comparerScores');
+
+$search_result = [];
+$searched_username = "";
+$searched_score = "";
+$searched_rank = "";
+$search_not_found = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $search_term = $_POST['search'] ?? '';
+    if (!empty($search_term)) {
+        foreach ($utilisateurs as $classement => $utilisateur) {
+            if (stripos($utilisateur['nom'], $search_term) !== false) {
+                $search_result[] = $utilisateur;
+                $searched_username = $utilisateur['nom'];
+                $searched_score = $utilisateur['score'];
+                $searched_rank = $classement + 1;
+                break;
+            }
+        }
+        if (empty($search_result)) {
+            $search_not_found = true;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Page principale</title>
+    <title>HighScore</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h4>Génération d'un code aléatoire pour créer un groupe :</h4>
-    <form class="niveau">
-        <input type="text" id="code" readonly>
-        <button type="button" onclick="genererCode()"  placeholder="Obligatoire"  required>Générer un code</button>
-        <div>
-            <input id="facile" type="radio" name="niveau" value="facile" checked="checked">
-            <label for="facile">Facile</label>
-            <input id="intermediaire" type="radio" name="niveau" value="intermediaire">
-            <label for="intermediaire">Intermediaire</label>
-            <input id="difficile" type="radio" name="niveau" value="difficile">
-            <label for="difficile">Difficile</label>
-        </div>
-         <p><button class="submitcode" type="button" onclick="enregistrer()">Enregistrer</button></p>
-	 <div id="message" style="display: none;"></div>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label for="search" class="recherche">Rechercher un utilisateur :</label>
+        <input type="text" id="search" name="search" class="recherche">
+        <input type="submit" value="Rechercher" class="recherche">
     </form>
-	
-    <h4>Indiquez le code de votre classe :<h4p>
-    <form class="niveau" action="<?php echo $url."/professeur.php"; ?>" method="post">
-    <input type="text" name="code_classe" placeholder="Entrez le code de votre classe" required>
-    <button type="submit">Afficher les résultats</button>
-</form>
-
-    <?php if(!empty($_POST['code_classe'])): ?>
-    <div id="donnees_classe">
-        <?php
-            include("parametre.php");
-            $code_classe = $_POST["code_classe"] ?? '';
-            $fichier_nom = "$code_classe.txt";
-            if(file_exists($fichier_nom)){
-                $contenu = file($fichier_nom);
-                $donnees_scores = [];
-                foreach($contenu as $ligne){
-                    $donnees = explode(";", $ligne);
-                    $score = intval($donnees[2]); 
-                    $donnees_scores[$score] = $donnees;
-                }
-                krsort($donnees_scores);
-                echo "<table border='1'>";
-                echo "<caption>HIGHSCORE</caption>";
-                echo "<tr>";
-                echo "<th>Classement</th>";
-                echo "<th>Nom de l'utilisateur</th>";
-                echo "<th>Score</th>";
-                echo "</tr>";
-                $classement = 1;
-                foreach($donnees_scores as $donnees){
-                    echo "<tr>";
-                    echo "<td>".$classement."</td>"; 
-                    echo "<td>".$donnees[0]."</td>"; 
-                    echo "<td>".$donnees[2]."</td>"; 
-                    echo "</tr>";
-                    $classement++; 
-                }
-                echo "</table>";
-            }
-            else{
-                echo "Aucune donnée trouvée pour ce code de classe.";
-            }
-        ?>
-    </div>
-    <div class="niveau" id="recherche_utilisateur">
-        <h4>Recherche d'utilisateur</h4>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <input type="hidden" name="code_classe" value="<?php echo isset($_POST['code_classe']) ? $_POST['code_classe'] : ''; ?>">
-            <label for="search_user">Rechercher un utilisateur :</label>
-            <input type="text" id="search_user" name="search_user">
-            <input type="submit" value="Rechercher">
-        </form>
-        <?php
-            if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search_user"])){
-                $search_term = $_POST["search_user"];
-                $code_classe = $_POST["code_classe"];
-                if(!empty($search_term) && !empty($code_classe)){
-                    $fichier_nom = "$code_classe.txt";
-                    if(file_exists($fichier_nom)){
-                        $contenu = file($fichier_nom);
-                        $found = false;
-                        foreach($contenu as $ligne){
-                            $donnees = explode(";", $ligne);
-                            if(stripos($donnees[0], $search_term) !== false){
-                                echo "<p>Résultat de la recherche : <p>";
-                                echo "<p>Nom d'utilisateur : ".$donnees[0]."<p>";
-                                echo "<p>Score : ".$donnees[2]."</p>";
-                                $found = true;
-                            }
-                        }
-                        if(!$found){
-                            echo "Utilisateur non trouvé.";
-                        }
-                    }
-                    else{
-                        echo "Aucune donnée trouvée pour ce code de classe.";
-                    }
-                }
-                else{
-                    echo "Veuillez entrer un terme de recherche et un code de classe valide.";
-                }
-            }
-        ?>
-    </div>
-    <br><br>
+	<br>
+    <?php if ($search_not_found): ?>
+        <div class="recherche">
+            <h3>Résultats de la recherche :</h3>
+            <p>L'utilisateur recherché est introuvable.</p>
+        </div>
+    <?php elseif (!empty($search_result)): ?>
+        <div class="recherche">
+            <h3>Résultats de la recherche :</h3>
+            <p>Nom d'utilisateur : <?php echo htmlspecialchars($searched_username); ?></p>
+            <p>Classement : <?php echo htmlspecialchars($searched_rank); ?></p>
+            <p>Score : <?php echo htmlspecialchars($searched_score); ?></p>
+        </div>
     <?php endif; ?>
-    <div id="message" style="display:none;"></div>
-	<div class='mdp'>
-		<a href="password.php">Changer le mot de passe</a>
-	</div>
-    <script type="text/javascript" src="professeur.js"></script>
+    <table border="1">
+        <caption>HIGHSCORE</caption>
+        <tr>
+            <th>Classement</th>
+            <th>Nom de l'utilisateur</th>
+            <th>Score</th>
+        </tr>
+        <?php 
+        $classement = 1;
+        foreach ($utilisateurs as $utilisateur): 
+        ?>
+            <tr>
+                <td><?php echo $classement; ?></td>
+                <td><?php echo htmlspecialchars($utilisateur['nom']); ?></td>
+                <td><?php echo htmlspecialchars($utilisateur['score']); ?></td>
+            </tr>
+            <?php 
+            $classement++;
+            ?>
+        <?php endforeach; ?>
+    </table>
+    <br>
     <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
-
-<?php
-    include("parametre.php");
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $code = $_POST["code"] ?? '';
-        $niveau = $_POST["niveau"] ?? '';
-        $contenu = "$code $niveau\n";
-        $fichier = fopen("groupe.txt", "a") or die("Impossible d'ouvrir le fichier.");
-        fwrite($fichier, $contenu);
-        fclose($fichier);
-        exit;
-    }
-?>
