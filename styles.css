@@ -14,6 +14,16 @@ h4 {
     font-size: 25px;
 }
 
+h5 {
+    text-align: center;
+	font-size: 15px;
+}
+.highscore{
+	font-size: 18px;
+}
+	
+
+
 .reponse {
     padding: 20px 175px; 
     margin: 10px auto; 
@@ -24,14 +34,22 @@ h4 {
     text-align: center;
 }
 
+.centered-message {
+    text-align: center;
+}
+
+
+		
+.message {
+    margin-top: 20px;
+    color: red;
+    font-weight: bold;
+}
 
 
 .niveau{
 	text-align: center;
 }
-
-
-
 
 .flex-container {
     display: flex;
@@ -62,7 +80,6 @@ h4 {
 }
 
 .mdp{
-	float: right;
 	padding: 5px 5px;
     margin: 0px;
     font-size: 16px;
@@ -72,6 +89,7 @@ h4 {
     border-radius: 4px;
     text-align: center;
     text-decoration: none;
+	float: right;
 }
 
 
@@ -87,9 +105,9 @@ h4 {
 }
 
 #code {
-    width: 100%;
+    width: 50%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 10px 0px;
     font-size: 20px;
     text-align: center;
 }
@@ -125,6 +143,18 @@ h4 {
     background-color: #4CAF50;
     color: white;
     text-align: center;
+}
+
+.submitmdp {
+    width: 50%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 20px;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .submitcode {
@@ -202,6 +232,10 @@ h4 {
 
 #finDuJeu {
     float: right;
+}
+
+#timer {
+    float: left;
 }
 
 #reselectNiveau {
