@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($username_exists) {
-            $message = "Le nom d'utilisateur existe déjà. Veuillez en choisir un autre.";
+            $message = "Le nom d'utilisateur existe déjà.<br> Veuillez en choisir un autre.";
         } else {
             $random_id = uniqid();
             $_SESSION['random_id'] = $random_id;
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Créer un compte</h2>
 	
 	 <?php if (!empty($message)): ?>
-        <p><?php echo $message; ?></p>
+       <div><?php echo $message; ?></div>
     <?php endif; ?>
 	
     <form action="<?php echo $url."/signup.php"; ?>" class="basique" method="post">
