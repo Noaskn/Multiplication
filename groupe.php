@@ -11,7 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (file_exists('groupe.txt') && is_readable('groupe.txt')) {
         $lines = file('groupe.txt');
         foreach ($lines as $line) {
-            list($codeFromFile, $niveauFromFile) = explode(" ", trim($line));
+            $lineParts = explode(" ", trim($line));
+            if (count($lineParts) < 2) {
+                continue; // Skip lines that do not have both code and niveau
+            }
+            list($codeFromFile, $niveauFromFile) = $lineParts;
             if ($codeFromFile == $code) {
                 $found = true;
                 $niveau = $niveauFromFile;
@@ -85,24 +89,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     $_SESSION['code_valid'] = false;
 }
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Groupe</title>
-	<link rel="stylesheet" href="styles.css">
+    <title>Mode Groupe</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Entrez votre code de groupe</h2>
     <form class='niveau' action="groupe.php" method="post">
         <input type="text" name="code" required>
-        <button type="submit">Vérifier le code</button>
+        <br>
+        <button class='submitmdp' type="submit">Vérifier le code</button>
     </form>
 
     <?php if (isset($_SESSION['message'])): ?>
-        <p><?php echo $_SESSION['message']; ?></p>
+        <div class="niveau">
+            <p><?php echo $_SESSION['message']; ?></p>
+        </div>
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
 
@@ -115,13 +120,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input class='reponse' type="number" placeholder="Entrer la réponse" id="input">
             <button id="valider" class="valider">Valider</button>
             <div id="timer">00:00</div>
-            <p id="bonusMessage"></p>
-            <p id="resultat"></p>
+            <br>
+            <div style="display: flex; justify-content: space-between;">
+                <p id="resultat" style="text-align: left;"></p>
+                <p id="bonusMessage" style="text-align: center;"></p>
+                
+            </div>
+			<a id="finDuJeu" class="bouton" href="#" style="text-align: right;">Fin du jeu</a>
             <script>
                 var niveau = "<?php echo $_SESSION['niveau']; ?>";
                 var uniqid = "<?php echo isset($_SESSION['random_id']) ? $_SESSION['random_id'] : ''; ?>";
+
+                document.getElementById('finDuJeu').addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var score = document.getElementById('score').textContent;
+                    var url = "<?php echo $url; ?>/classe.php?score=" + score + "&niveau=" + niveau;
+                    window.location.href = url;
+                });
             </script>
-            <a class="bouton" id='classe' href="<?php echo $url."/classe.php"; ?>">Fin du jeu</a>
             <script src="groupe.js"></script>
         </div>
     <?php endif; ?>
