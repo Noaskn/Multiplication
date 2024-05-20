@@ -25,7 +25,7 @@
         exit();
     }
     $code_admin = file_get_contents("administrateur.txt");
-     $message = '';
+    $message = '';
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $nouveau_code = $_POST['nouveau_code'] ?? '';
         if(!empty($nouveau_code)){
@@ -96,16 +96,18 @@
         <input type="number" id="nouveau_code" name="nouveau_code" required>
         <button type="submit">Valider</button>
     </form>
-	<br><br>
+    <br>
+    <?php
+        if ($message !== "") {
+            echo "<h5>$message</h5>";
+        }
+    ?>
+    <br><br>
 
-    <?php if (!empty($message)) : ?>
-    <p><?php echo $message; ?></p>
-    <?php endif; ?>
-
-	<div class='niveau'>
-    <h3>Code administrateur actuel :</h3>
-    <p><?php echo $code_admin; ?></p>
-	</div>
+    <div class='niveau'>
+        <h3>Code administrateur actuel :</h3>
+        <p><?php echo $code_admin; ?></p>
+    </div>
     <a href="index.php"><button>Retourner à l'accueil</button></a>
 </body>
 </html>
