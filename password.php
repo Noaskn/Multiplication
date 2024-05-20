@@ -2,6 +2,7 @@
 session_start(); 
 
 $username = "";
+$message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -10,45 +11,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST['confirm_password'];
 
     if ($new_password !== $confirm_password) {
-        echo("Le nouveau mot de passe et la confirmation ne correspondent pas.");
-    }
-
-    $users = file('utilisateurs.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $user_found = false;
-    $password_changed = false;
-    $new_users = [];
-    $role = ""; // Initialisation de la variable de rôle
-
-    foreach ($users as $user) {
-        if (trim($user) === '') continue;
-        $user_data = explode(';', $user);
-        $stored_username = $user_data[0];
-        $stored_password = $user_data[1];
-
-        if ($stored_username === $username) {
-            $user_found = true;
-            if ($old_password === $stored_password) {
-                $user_data[1] = $new_password; 
-                $password_changed = true;
-                // Récupérer le rôle de l'utilisateur
-                $role = $user_data[4]; // Cinquième colonne
-            } else {
-                echo("Ancien mot de passe incorrect.");
-            }
-        }
-
-        $new_users[] = implode(';', $user_data);
-    }
-
-    if ($user_found) {
-        if ($password_changed) {
-            file_put_contents('utilisateurs.txt', implode(PHP_EOL, $new_users) . PHP_EOL);
-            echo "Mot de passe changé avec succès.";
-        } else {
-            echo "Erreur lors du changement de mot de passe.";
-        }
+        $message = "Le nouveau mot de passe et la confirmation ne correspondent pas.";
     } else {
-        echo "Nom d'utilisateur incorrect.";
+        $users = file('utilisateurs.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $user_found = false;
+        $password_changed = false;
+        $new_users = [];
+        $role = ""; 
+
+        foreach ($users as $user) {
+            if (trim($user) === '') continue;
+            $user_data = explode(';', $user);
+            $stored_username = $user_data[0];
+            $stored_password = $user_data[1];
+
+            if ($stored_username === $username) {
+                $user_found = true;
+                if ($old_password === $stored_password) {
+                    $user_data[1] = $new_password; 
+                    $password_changed = true;
+                    $role = $user_data[4]; 
+                } else {
+                    $message = "Ancien mot de passe incorrect.";
+                }
+            }
+
+            $new_users[] = implode(';', $user_data);
+        }
+
+        if ($user_found) {
+            if ($password_changed) {
+                file_put_contents('utilisateurs.txt', implode(PHP_EOL, $new_users) . PHP_EOL);
+                $message = "Mot de passe changé avec succès.";
+            } else {
+                $message = "Erreur lors du changement de mot de passe.";
+            }
+        } else {
+            $message = "Nom d'utilisateur incorrect.";
+        }
     }
 }
 ?>
@@ -57,27 +57,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Changement de Mot de Passe</title>
-	<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     
     <div>
-        <form action="change_password.php" method="post">
-            <p>Changer le mot de passe :</p>
+        <form class='niveau' action="password.php" method="post">
+            <h4>Changer le mot de passe :</h4>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" required><br>
-
+            <br>
             <label for="old_password">Ancien mot de passe :</label>
             <input type="password" id="old_password" name="old_password" required><br>
-
+            <br>
             <label for="new_password">Nouveau mot de passe :</label>
             <input type="password" id="new_password" name="new_password" required><br>
-
+            <br>
             <label for="confirm_password">Confirmez le nouveau mot de passe :</label>
             <input type="password" id="confirm_password" name="confirm_password" required><br>
-
-            <input type="submit" value="Changer le mot de passe">
+            <br>
+            <input class='submitmdp' type="submit" value="Changer le mot de passe">
         </form>
+        <div>
+            <?php
+            if ($message !== "") {
+                echo "<h5>$message</h5>";
+            }
+            ?>
+        </div>
     </div>
     
     <?php
