@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+	<div class='highscore'>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="search" class="recherche">Rechercher un utilisateur :</label>
         <input type="text" id="search" name="search" class="recherche">
@@ -86,6 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Score : <?php echo htmlspecialchars($searched_score); ?></p>
         </div>
     <?php endif; ?>
+	
+	</div>
     <table border="1">
         <caption>HIGHSCORE</caption>
         <tr>
