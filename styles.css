@@ -1,263 +1,250 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
+body{
+    font-family: Arial, sans-serif; /* Définit la police de caractères par défaut */
+    background-color: #f4f4f4; /* Définit la couleur de fond de la page */
+    padding: 20px; /* Ajoute un espacement intérieur */
 }
 
-h2 {
-    text-align: center;
-    font-size: 50px;
+h2{
+    text-align: center; /* Centre le texte horizontalement */
+    font-size: 50px; /* Définit la taille de police */
 }
 
-h4 {
-    text-align: center;
-    font-size: 25px;
+h4{
+    text-align: center; /* Centre le texte horizontalement */
+    font-size: 25px; /* Définit la taille de police */
 }
 
-h5 {
-    text-align: center;
-	font-size: 15px;
+h5{
+    text-align: center; /* Centre le texte horizontalement */
+	font-size: 15px; /* Définit la taille de police */
 }
+
 .highscore{
-	font-size: 18px;
-}
-	
-
-
-.reponse {
-    padding: 20px 175px; 
-    margin: 10px auto; 
-    font-size: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    text-align: center;
+	font-size: 18px; /* Définit la taille de police */
 }
 
-.centered-message {
-    text-align: center;
+.reponse{
+    padding: 20px 175px; /* Ajoute un espacement intérieur */
+    margin: 10px auto; /* Centre horizontalement et ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    border: 1px solid #ccc; /* Ajoute une bordure de 1 pixel */
+    border-radius: 5px; /* Arrondit les coins de l'élément */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur et la hauteur totale */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-
-		
-.message {
-    margin-top: 20px;
-    color: red;
-    font-weight: bold;
+.centered-message{
+    text-align: center; /* Centre le texte horizontalement */
 }
 
+.message{
+    margin-top: 20px; /* Ajoute une marge en haut */
+    color: red; /* Définit la couleur du texte */
+    font-weight: bold; /* Définit le poids de la police à "bold" */
+}
 
 .niveau{
-	text-align: center;
+	text-align: center; /* Centre le texte horizontalement */
 }
 
-.flex-container {
-    display: flex;
-    align-items: center; 
+.flex-container{
+    display: flex; /* Utilise le modèle de boîte flexible */
+    align-items: center; /* Centre les éléments verticalement */
 }
 
-.flex-container input[type="text"],
-.flex-container button {
-    margin-right: 30px; 
+.flex-container input[type="text"], .flex-container button{
+    margin-right: 30px; /* Ajoute une marge à droite entre les éléments */
 }
 
-
-.basique input[type="text"],
-.basique input[type="password"],
-.basique input[type="number"] {
-    width: calc(100% - 24px); 
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-sizing: border-box; 
-    text-align: center;
+.basique input[type="text"], .basique input[type="password"], .basique input[type="number"]{
+    width: calc(100% - 24px); /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    border: 1px solid #ccc; /* Ajoute une bordure de 1 pixel */
+    border-radius: 5px; /* Arrondit les coins de l'élément */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur et la hauteur totale */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-.debut label {
-    display: block; 
+.debut label{
+    display: block; /* Affiche l'élément en tant que bloc */
 }
 
 .mdp{
-	padding: 5px 5px;
-    margin: 0px;
-    font-size: 16px;
-    background-color: #f4f4f4;
-    color: black;
-    border: 1px solid black; 
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-	float: right;
+	padding: 5px 5px; /* Ajoute un espacement intérieur */
+    margin: 0px; /* Supprime la marge */
+    font-size: 16px; /* Définit la taille de police */
+    background-color: #f4f4f4; /* Définit la couleur de fond */
+    color: black; /* Définit la couleur du texte */
+    border: 1px solid black; /* Ajoute une bordure noire de 1 pixel */
+    border-radius: 4px; /* Arrondit les coins de l'élément */
+    text-align: center; /* Centre le texte horizontalement */
+    text-decoration: none; /* Supprime la décoration du texte */
+	float: right; /* Positionne l'élément à droite */
 }
 
-
-.codeadm {
-    margin: auto;
-    width: 400px;
-    padding: 40px;
-    color: white;
-    background-color: #4CAF50;
-    border-radius: 10px;
-    font-size: 30px;
-    text-align: center; 
+.codeadm{
+    margin: auto; /* Centre horizontalement */
+    width: 400px; /* Définit la largeur */
+    padding: 40px; /* Ajoute un espacement intérieur */
+    color: white; /* Définit la couleur du texte */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    border-radius: 10px; /* Arrondit les coins de l'élément */
+    font-size: 30px; /* Définit la taille de police */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-#code {
-    width: 50%;
-    padding: 12px;
-    margin: 10px 0px;
-    font-size: 20px;
-    text-align: center;
+#code{
+    width: 50%; /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0px; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-.basique {
-    position: absolute;
-    top: 60%; /* Ajuster cette valeur pour baisser le bloc des formulaires */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 20px;
+.basique{
+    position: absolute; /* Positionne l'élément de manière absolue */
+    top: 60%; /* Positionne l'élément à 60% du haut de la page */
+    left: 50%; /* Positionne l'élément à 50% du côté gauche de la page */
+    transform: translate(-50%, -50%); /* Centre l'élément horizontalement et verticalement */
+    width: 500px; /* Définit la largeur */
+    padding: 40px; /* Ajoute un espacement intérieur */
+    background-color: #fff; /* Définit la couleur de fond */
+    border-radius: 10px; /* Arrondit les coins de l'élément */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère */
+    font-size: 20px; /* Définit la taille de police */
 }
-
 
 .debut{
-    width: calc(100% - 20px);
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    text-align: center;
+    width: calc(100% - 20px); /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-.submit {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
+.submit{
+    width: 100%; /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    margin-top: 20px; /* Ajoute une marge en haut */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
-.submitmdp {
-    width: 50%;
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    background-color: #4CAF50; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.submitmdp{
+    width: 50%; /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    border: none; /* Supprime la bordure */
+    border-radius: 5px; /* Arrondit les coins de l'élément */
+    cursor: pointer; /* Définit le curseur de la souris en main */
 }
 
-.submitcode {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    background-color: #4CAF50; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.submitcode{
+    width: 100%; /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    border: none; /* Supprime la bordure */
+    border-radius: 5px; /* Arrondit les coins de l'élément */
+    cursor: pointer; /* Définit le curseur de la souris en main */
 }
 
-.submitcompte input[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-	background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.submitcompte input[type="submit"]{
+    width: 100%; /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+	background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    border: none; /* Supprime la bordure */
+    border-radius: 5px; /* Arrondit les coins de l'élément */
+    cursor: pointer; /* Définit le curseur de la souris en main */
 }
 
-
-
-.valider {
-    width: calc(100% + 5px);
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 20px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
+.valider{
+    width: calc(100% + 5px); /* Définit la largeur */
+    padding: 12px; /* Ajoute un espacement intérieur */
+    margin: 10px 0; /* Ajoute une marge en haut et en bas */
+    font-size: 20px; /* Définit la taille de police */
+    margin-top: 20px; /* Ajoute une marge en haut */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    text-align: center; /* Centre le texte horizontalement */
 }
-.button {
-    display: block;
-    width: 300px;
-    font-size: 30px;
-    padding: 20px 100px;
-    margin: 10px auto;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    text-align: center;
+
+.button{
+    display: block; /* Affiche l'élément en tant que bloc */
+    width: 300px; /* Définit la largeur */
+    font-size: 30px; /* Définit la taille de police */
+    padding: 20px 100px; /* Ajoute un espacement intérieur */
+    margin: 10px auto; /* Centre horizontalement et ajoute une marge en haut et en bas */
+    background-color: #4CAF50; /* Définit la couleur de fond */
+    color: white; /* Définit la couleur du texte */
+    text-decoration: none; /* Supprime la décoration du texte */
+    border-radius: 4px; /* Arrondit les coins de l'élément */
+    transition: background-color 0.3s; /* Définit une transition pour la couleur de fond */
+    text-align: center; /* Centre le texte horizontalement */
 }
 
 .app{
-    margin: auto;
-    height: 100%;
-    width: 50%;
+    margin: auto; /* Centre horizontalement */
+    height: 100%; /* Définit la hauteur */
+    width: 50%; /* Définit la largeur */
 }
 
 .score{
-    font-size: 30px;
+    font-size: 30px; /* Définit la taille de police */
 }
 
 .bouton{
-    padding: 5px 5px;
-    margin: 0px;
-    font-size: 16px;
-    background-color: #f4f4f4;
-    color: black;
-    border: 1px solid black; 
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
+    padding: 5px 5px; /* Ajoute un espacement intérieur */
+    margin: 0px; /* Supprime la marge */
+    font-size: 16px; /* Définit la taille de police */
+    background-color: #f4f4f4; /* Définit la couleur de fond */
+    color: black; /* Définit la couleur du texte */
+    border: 1px solid black; /* Ajoute une bordure noire de 1 pixel */
+    border-radius: 4px; /* Arrondit les coins de l'élément */
+    text-align: center; /* Centre le texte horizontalement */
+    text-decoration: none; /* Supprime la décoration du texte */
 }
 
-
-#finDuJeu {
-    float: right;
+#finDuJeu{
+    float: right; /* Positionne l'élément à droite */
 }
 
-#timer {
-    float: left;
+#timer{
+    float: left; /* Positionne l'élément à gauche */
 }
 
-#reselectNiveau {
-    float: left;
+#reselectNiveau{
+    float: left; /* Positionne l'élément à gauche */
 }
 
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-	border: 1px solid black;
+table{
+    border-collapse: collapse; /* Fusionne les bordures des cellules adjacentes */
+    width: 100%; /* Définit la largeur */
+	border: 1px solid black; /* Ajoute une bordure noire de 1 pixel */
 }
 
-td {
-    border: 1px solid black;
-	padding: 8px;
-    text-align: left;
+td{
+    border: 1px solid black; /* Ajoute une bordure noire de 1 pixel */
+	padding: 8px; /* Ajoute un espacement intérieur */
+    text-align: left; /* Aligne le texte à gauche */
 }
 
 th{
-    padding: 8px;
-    text-align: left;
-	background-color: #4CAF50;
-	color: white;
+    padding: 8px; /* Ajoute un espacement intérieur */
+    text-align: left; /* Aligne le texte à gauche */
+	background-color: #4CAF50; /* Définit la couleur de fond */
+	color: white; /* Définit la couleur du texte */
 }
