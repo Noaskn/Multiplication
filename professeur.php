@@ -89,7 +89,7 @@
         ?>
         </div><br>
 
-        // Trier les scores dans l'ordre décroissant
+         <!-- Section pour rechercher un utilisateur dans la classe -->
         <div class="niveau" id="recherche_utilisateur">
             <h4>Recherche d'utilisateur</h4>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
