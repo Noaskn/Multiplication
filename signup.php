@@ -1,41 +1,67 @@
 <?php
 session_start();
 include("parametre.php");
+
+// Initialise la variable pour les messages à afficher
+
 $message = '';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    // Récupère le nom d'utilisateur, le mot de passe et le type saisis dans le formulaire
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     $type = $_POST['type'] ?? '';
+
+    // Initialise la variable pour le statut de blocage du compte
     $bloque = 'Non';
-    
-    if (!empty($username) && !empty($password)) {
+
+    // Vérifie si le nom d'utilisateur et le mot de passe ne sont pas vides
+    if(!empty($username) && !empty($password)){
         $file_path = "utilisateurs.txt";
-        if (file_exists($file_path)) {
+
+        // Vérifie si le fichier des utilisateurs existe
+        if(file_exists($file_path)){
+
+            // Lit le contenu du fichier et le stocke dans un tableau
             $utilisateurs = array_filter(file($file_path, FILE_IGNORE_NEW_LINES));
-        } else {
+        }
+        else{
             $utilisateurs = []; 
         }
-
         $username_exists = false;
-        foreach ($utilisateurs as $utilisateur) {
+
+        // Vérifie si le nom d'utilisateur existe déjà dans le fichier
+        foreach($utilisateurs as $utilisateur){
             $info = explode(";", $utilisateur);
-            if ($info[0] == $username) {
+
+            // Si le nom d'utilisateur correspond à celui saisi on sort
+            if($info[0] == $username){
                 $username_exists = true;
                 break;
             }
         }
 
-        if ($username_exists) {
+        // Si le nom d'utilisateur existe déjà, affiche un message d'erreur
+        if($username_exists){
             $message = "Le nom d'utilisateur existe déjà.<br> Veuillez en choisir un autre.";
-        } else {
+        }
+
+        // Si le nom d'utilisateur est unique
+        else{
+
+            // Génère un identifiant unique et le stocke dans la session
             $random_id = uniqid();
             $_SESSION['random_id'] = $random_id;
+
+            // Ajoute les données de l'utilisateur au fichier
             $data = "$username;$password;$random_id;0;$type;$bloque\n";
             file_put_contents($file_path, $data, FILE_APPEND);
 
-            if ($type == "Professeur") {
+            // Redirige l'utilisateur en fonction du type de compte
+            if($type == "Professeur"){
                 include("professeur.php");
-            } else {
+            }
+            else{
                 include("mode.php");
             }
             exit();
@@ -53,11 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h2>Créer un compte</h2>
-	
-	 <?php if (!empty($message)): ?>
-       <div><?php echo $message; ?></div>
+
+    <!-- Affichage du message d'erreur -->
+	<?php if(!empty($message)): ?>
+        <div><?php echo $message; ?></div>
     <?php endif; ?>
-	
+
+     <!-- Formulaire d'inscription -->
     <form action="<?php echo $url."/signup.php"; ?>" class="basique" method="post">
         <div class="debut">
             <label for="username">Nom d'utilisateur :</label>
