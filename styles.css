@@ -33,15 +33,7 @@ h5{
     text-align: center; /* Centre le texte horizontalement */
 }
 
-.centered-message{
-    text-align: center; /* Centre le texte horizontalement */
-}
 
-.message{
-    margin-top: 20px; /* Ajoute une marge en haut */
-    color: red; /* Définit la couleur du texte */
-    font-weight: bold; /* Définit le poids de la police à "bold" */
-}
 
 .niveau{
 	text-align: center; /* Centre le texte horizontalement */
@@ -52,9 +44,6 @@ h5{
     align-items: center; /* Centre les éléments verticalement */
 }
 
-.flex-container input[type="text"], .flex-container button{
-    margin-right: 30px; /* Ajoute une marge à droite entre les éléments */
-}
 
 .basique input[type="text"], .basique input[type="password"], .basique input[type="number"]{
     width: calc(100% - 24px); /* Définit la largeur */
