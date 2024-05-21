@@ -91,6 +91,8 @@ document.addEventListener("DOMContentLoaded", function(){
         let reponse = parseInt(inputField.value);
         let correctResult = parseInt(num1.innerText) * parseInt(num2.innerText);
         let tempsReponse = Math.floor((Date.now() - dernierTempsReponse) / 1000);
+
+        // Calcul du score à ajouter en fonction du temps de réponse
         if(reponse === correctResult){
             let scoreToAdd = 0;
             if(tempsReponse < 3){
@@ -112,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function(){
             correctResponses++;
             resultatPara.innerText = "Bonne réponse !";
         }
+
+        // Réinitialise les réponses correctes consécutives en cas de mauvaise réponse et calcul du score à enlever en fonction du temps de réponse
         else{
             resultatPara.innerText = "Mauvaise réponse.";
             correctResponses = 0; 
