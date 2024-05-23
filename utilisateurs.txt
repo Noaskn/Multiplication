@@ -1,0 +1,9 @@
+alice;franco;6649d5c901f3a;31;Elève;Non
+jean;claude;6649c281e2cb1;110;Elève;Non
+noa;sakoun;6649c8d113cc9;212;Elève;Non
+emma;danan;6648ed2e93079;111;Elève;Non
+gaspard;lepetard;6648e1ddb7ba9;51;Elève;Non
+loris;jesaispas;6649d666c5138;32;Elève;Non
+Caryl;jesuisuntresbonprof;6649d5f2b347b;0;Professeur;Non
+Ghislaine;franco;664c93339d6b9;97;Elève;Non
+eric;vincent;664c93c5419fa;-22;Elève;Non
